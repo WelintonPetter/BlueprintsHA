@@ -1,14 +1,15 @@
 blueprint:
-  name: Welinton_Alexa
-  description: Anuncia em todas as caixas Echo selecionadas
+  name: Anunciar via Alexa com Base em Sensor
+  description: Anuncia o estado de um sensor em todas as caixas Echo selecionadas
   domain: script
 mode: queued
 fields:
-  mensagem:
+  sensor:
     selector:
-      text: null
-    name: Mensagem
-    description: O que anunciar?
+      entity:
+        domain: sensor
+    name: Sensor
+    description: Selecione o sensor cujo estado será anunciado
     required: true
   onde_anunciar:
     selector:
@@ -27,9 +28,9 @@ fields:
         min: 0.1
         max: 1
         step: 0.1
-    default: 0.6
+    default: 0.9
     name: Volume
-    description: Escolha o volume do anúncio (padrão 60%)
+    description: Escolha o volume do anúncio (padrão 90%)
 sequence:
   - service: media_player.volume_set
     metadata: {}
@@ -44,7 +45,8 @@ sequence:
       milliseconds: 0
   - service: notify.alexa_media
     data:
-      message: "{{ mensagem }}"
+      message: >
+        O estado do sensor é {{ states(sensor) }}
       data:
         type: announce
       target: "{{ onde_anunciar }}"

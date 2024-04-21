@@ -1,15 +1,14 @@
 blueprint:
-  name: Anunciar via Alexa com Base em Sensor
-  description: Anuncia o estado de um sensor em todas as caixas Echo selecionadas
+  name: Anunciar via Alexa
+  description: Anuncia em todas as caixas Echo selecionadas
   domain: script
 mode: queued
 fields:
-  sensor:
+  mensagem:
     selector:
-      entity:
-        domain: sensor
-    name: Sensor
-    description: Selecione o sensor cujo estado será anunciado
+      text: null
+    name: Mensagem
+    description: O que anunciar?
     required: true
   onde_anunciar:
     selector:
@@ -28,9 +27,9 @@ fields:
         min: 0.1
         max: 1
         step: 0.1
-    default: 0.9
+    default: 0.8
     name: Volume
-    description: Escolha o volume (padrão 80%)
+    description: Escolha o volume do anúncio (padrão 80%)
 sequence:
   - service: media_player.volume_set
     metadata: {}
@@ -45,8 +44,7 @@ sequence:
       milliseconds: 0
   - service: notify.alexa_media
     data:
-      message: >
-        O estado do sensor é {{ states(sensor) }}
+      message: "{{ mensagem }}"
       data:
         type: announce
       target: "{{ onde_anunciar }}"

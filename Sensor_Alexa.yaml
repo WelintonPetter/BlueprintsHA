@@ -30,7 +30,7 @@ fields:
         step: 0.1
     default: 0.9
     name: Volume
-    description: Escolha o volume do anúncio (padrão 90%)
+    description: Escolha o volume (padrão 80%)
 sequence:
   - service: media_player.volume_set
     metadata: {}

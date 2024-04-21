@@ -18,7 +18,7 @@ fields:
           - integration: alexa_media
             domain: media_player
         multiple: true
-    name: Onde Anunciar
+    name: Onde Anunciar0
     required: true
     default: []
     description: Escolha as Alexas

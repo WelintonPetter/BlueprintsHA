@@ -11,14 +11,6 @@ fields:
     name: Sensor
     description: Selecione o sensor cujo estado será anunciado
     required: true
-  objetivo:
-    name: Objetivo
-    description: Insira o valor do objetivo
-    default: 8000
-    selector:
-      number:
-        min: 0
-    required: true
   onde_anunciar:
     selector:
       entity:
@@ -26,7 +18,7 @@ fields:
           - integration: alexa_media
             domain: media_player
         multiple: true
-    name: Onde Anunciar
+    name: Onde Anunciar0
     required: true
     default: []
     description: Escolha as Alexas
@@ -54,7 +46,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Você deu o total de {{ states(sensor) }} Passos. Seu Objetivo é {{ objetivo }}. Você alcançou {{ ((states(sensor) | int / objetivo) * 100) | round(2) }}% do seu objetivo.
+        Você deu o total de {{ states(sensor) }} Passos. Seu Objetivo é 8000. Você alcançou {{ ((states(sensor) | int / 8000) * 100) | round(2) }}% do seu objetivo.
       data:
         type: announce
       target: "{{ onde_anunciar }}"

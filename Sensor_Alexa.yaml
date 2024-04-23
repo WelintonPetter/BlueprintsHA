@@ -1,6 +1,6 @@
 blueprint:
   name: Anunciar via Alexa com Base em Sensor
-  description: Anuncia o estado de dois sensores em todas as caixas Echo selecionadas
+  description: Anuncia o estado de três sensores em todas as caixas Echo selecionadas
   domain: script
 mode: queued
 fields:
@@ -16,7 +16,14 @@ fields:
       entity:
         domain: sensor
     name: Sensor 2
-    description: Selecione o segundo sensor cujo estado será anunciado
+    description: Selecione o segundo sensor cujo estado será anunciado 
+    required: true
+  sensor3:
+    selector:
+      entity:
+        domain: sensor
+    name: Sensor 3
+    description: Selecione o terceiro sensor cujo estado será anunciado
     required: true
   onde_anunciar:
     selector:
@@ -65,7 +72,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Sensor 2 - Você bebeu o total de  {{ states(sensor2) }} Litros. Seu Objetivo é 3. Você alcançou {{ ((states(sensor2) | int / 4) * 100) | round(2) }}% do seu objetivo..
+        Sensor 2 - Você bebeu o total de  {{ states(sensor2) }} Litros. Seu Objetivo é 3. Você alcançou {{ ((states(sensor2) | int / 4) * 100) | round(2) }}% do seu objetivo.
       data:
         type: announce
       target: "{{ onde_anunciar }}"
@@ -74,6 +81,18 @@ sequence:
       minutes: 0
       seconds: 15
       milliseconds: 0    
+  - service: notify.alexa_media
+    data:
+      message: >
+        Sensor 3 - Foguete: {{ states['sensor3'].attributes['vehicle'] }}
+      data:
+        type: announce
+      target: "{{ onde_anunciar }}"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0        
   - service: media_player.volume_set
     metadata: {}
     data:

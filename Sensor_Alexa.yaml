@@ -10,7 +10,6 @@ fields:
         domain: sensor
     name: Sensor
     description: Selecione o sensor cujo estado será anunciado
-    default: sensor.steps_daily  # Definindo sensor.steps_daily como padrão
     required: true
   onde_anunciar:
     selector:
@@ -21,7 +20,7 @@ fields:
         multiple: true
     name: Onde Anunciar
     required: true
-    default: sensor.steps_daily  # Mantendo o dispositivo Alexa selecionado como padrão
+    default: []
     description: Escolha as Alexas
   volume:
     selector:
@@ -29,7 +28,7 @@ fields:
         min: 0.1
         max: 1
         step: 0.1
-    default: 0.9  # Definindo um valor padrão de volume
+    default: 0.9
     name: Volume
     description: Escolha o volume do anúncio (padrão 90%)
 sequence:
@@ -47,7 +46,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Você deu o total de {{ states(sensor) }} Passos. Seu Objetivo é 8000. Você alcançou {{ ((states(sensor) | int / 8000) * 100) | round(2) }}% do seu objetivo.
+        Você deu o total de {{ states(sensor) }} Passos. Seu Objetivo é {{ objetivo }}. Você alcançou {{ ((states(sensor) | int / objetivo) * 100) | round(2) }}% do seu objetivo.
       data:
         type: announce
       target: "{{ onde_anunciar }}"

@@ -84,7 +84,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Sensor 3 - Foguete: {{ states['sensor3'].attributes['vehicle'] }}
+        Sensor 3 - Foguete: {{ state_attr('sensor.rocket_launch_1', 'vehicle') }}
       data:
         type: announce
       target: "{{ onde_anunciar }}"

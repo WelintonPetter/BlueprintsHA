@@ -61,4 +61,4 @@ sequence:
       volume_level: 0.3
     target:
       entity_id: "{{ onde_anunciar }}"
-icon: mdi:bullhorn
+icon: mdi:bullhorn 

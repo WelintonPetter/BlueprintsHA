@@ -58,7 +58,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Você bebeu o total de  {{ states(sensor.hydration) }} Litros. Seu Objetivo é 3. Você alcançou {{ ((states(sensor) | int / 4) * 100) | round(2) }}% do seu objetivo.
+        Você bebeu o total de  {{ states('sensor.hidratacao') }} Litros. Seu Objetivo é 3. Você alcançou {{ ((states(sensor) | int / 4) * 100) | round(2) }}% do seu objetivo.
       data:
         type: announce
       target: "{{ onde_anunciar }}"

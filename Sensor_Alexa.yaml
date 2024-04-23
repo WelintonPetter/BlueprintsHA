@@ -46,7 +46,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Você deu o total de {{ states(sensor) }} Passos. Seu Objetivo é {{ objetivo }}. Você alcançou {{ ((states(sensor) | int / objetivo) * 100) | round(2) }}% do seu objetivo.
+        O estado do sensor é {{ states(sensor) }}
       data:
         type: announce
       target: "{{ onde_anunciar }}"
@@ -61,4 +61,4 @@ sequence:
       volume_level: 0.3
     target:
       entity_id: "{{ onde_anunciar }}"
-icon: mdi:bullhorn 
+icon: mdi:bullhorn

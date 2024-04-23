@@ -58,7 +58,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Você deu o total de {{ states(sensor) }} Passos. Seu Objetivo é 8000. Você alcançou {{ ((states(sensor) | int / 4000) * 100) | round(2) }}% do seu objetivo.
+        Você deu o total de {{ states(sensor) }} Passos. Seu Objetivo é 8000. Você alcançou {{ ((states(sensor) | int / 4000) * 100) | round(2) }}% do seu objetivo. tem que melhorar
       data:
         type: announce
       target: "{{ onde_anunciar }}"

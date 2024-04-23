@@ -11,6 +11,13 @@ fields:
     name: Sensor
     description: Selecione o sensor cujo estado será anunciado
     required: true
+    sensor1:
+    selector:
+      entity:
+        domain: sensor1
+    name: Sensor1
+    description: Selecione o sendo sensor cujo estado será anunciado
+    required: true
   onde_anunciar:
     selector:
       entity:
@@ -53,7 +60,7 @@ sequence:
   - delay:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 15
       milliseconds: 0
   - service: notify.alexa_media
     data:
@@ -65,7 +72,7 @@ sequence:
   - delay:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 15
       milliseconds: 0    
   - service: media_player.volume_set
     metadata: {}

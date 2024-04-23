@@ -11,13 +11,6 @@ fields:
     name: Sensor
     description: Selecione o sensor cujo estado será anunciado
     required: true
-  sensor:
-    selector:
-      entity:
-        domain: sensorr
-    name: Sensorr
-    description: Selecione o sendo sensor cujo estado será anunciado
-    required: true
   onde_anunciar:
     selector:
       entity:

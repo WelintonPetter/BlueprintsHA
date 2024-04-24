@@ -47,6 +47,14 @@ sequence:
       data:
         type: announce
       target: "{{ onde_anunciar }}"
+  - service: notify.alexa_media
+    data:
+      message: >
+        teste
+
+      data:
+        type: announce
+      target: "{{ onde_anunciar }}"      
   - delay:
       hours: 0
       minutes: 0

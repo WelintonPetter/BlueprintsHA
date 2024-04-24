@@ -39,7 +39,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        teste: {{ states[''sensor.flightradar24_current_in_area','flights''].attributes[' flight.aircraft_model'] }}
+        teste: {{ states[''sensor.flightradar24_current_in_area','flights''].attributes['flight.aircraft_model'] }}
       data:
         type: announce
       target: "{{ onde_anunciar }}"

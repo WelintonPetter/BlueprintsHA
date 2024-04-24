@@ -39,7 +39,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Proximo Lançamento será {{ states['sensor.rocket_launch_1'].attributes['launch_date_target'] }}, da Empresa {{ states['sensor.rocket_launch_1'].attributes['provider'] }} com o foguete
+        Próximo Lançamento será {{ states['sensor.rocket_launch_1'].attributes['launch_date_target'] }}, da Empresa {{ states['sensor.rocket_launch_1'].attributes['provider'] }} com o foguete
         {{ states['sensor.rocket_launch_1'].attributes['vehicle'] }} para missão {{ states['sensor.rocket_launch_1'].attributes['name'] }}.
 
       data:                      

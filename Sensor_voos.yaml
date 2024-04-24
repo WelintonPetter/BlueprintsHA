@@ -54,7 +54,7 @@ sequence:
       message: >
         {% set flight_info = states['sensor.flightradar24_current_in_area'].attributes['flights'][0] %}
 
-        Com destino {{ flight_info['airport_destination_city'] }} aeroporto {{ flight_info['airport_destination_name'] }} com previsão de chegada para as {{ flight_info['flight.time_scheduled_arrival'] | timestamp_custom('%H:%M') }} 
+        Com destino {{ flight_info['airport_destination_city'] }} aeroporto {{ flight_info['airport_destination_name'] }} com previsão de chegada para as 
 
       data:
         type: announce

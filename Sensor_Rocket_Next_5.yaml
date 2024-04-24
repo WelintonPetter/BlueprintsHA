@@ -40,7 +40,7 @@ sequence:
     data:
       message: >
         Proximo Lançamento será {{ states['sensor.rocket_launch_1'].attributes['launch_date_target'] }}, da Empresa {{ states['sensor.rocket_launch_1'].attributes['provider'] }} com o foguete
-        {{ states['sensor.rocket_launch_1'].attributes['vehicle'] }} para missão {{ states['sensor.rocket_launch_1'].attributes['name'] }}, Lancamento será no pad {{ states['sensor.rocket_launch_1'].attributes['launch_pad'] }}
+        {{ states['sensor.rocket_launch_1'].attributes['vehicle'] }} para missão {{ states['sensor.rocket_launch_1'].attributes['name'] }}.
 
       data:                      
         type: announce
@@ -53,7 +53,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Sensor 3 - Foguete: {{ states['sensor.rocket_launch_1'].attributes['vehicle'] }}
+        Lançamento será no pad {{ states['sensor.rocket_launch_1'].attributes['launch_pad'] }}com sua localizado {{ states['sensor.rocket_launch_1'].attributes['launch_location'] }} com hórario previsto de Lançamento {{ states['sensor.rocket_launch_1'].attributes['launch_target'] }}
       data:
         type: announce
       target: "{{ onde_anunciar }}"

@@ -41,7 +41,8 @@ sequence:
       message: >
         {% set flight_info = states['sensor.flightradar24_current_in_area'].attributes['flights'][0] %}
 
-        Voo {{ flight_info['flight.flight_number'] }} da empresa {{ flight_info['airline'] }} com origem {{ flight_info['airport_origin_name'] }} foi detectado em nosso espaço aéreo com destino {{ flight_info['airport_destination_city'] }} aeroporto {{ flight_info['airport_destination_name'] }} com previsão de chegada para as {{ flight_info['flight.time_scheduled_arrival'] | timestamp_custom('%H:%M') }} 
+        Voo {{ flight_info['flight.flight_number'] }} da empresa {{ flight_info['airline'] }} com origem {{ flight_info['airport_origin_name'] }} foi detectado em nosso espaço aéreo
+        com destino {{ flight_info['airport_destination_city'] }} 
 
       data:
         type: announce
@@ -50,7 +51,7 @@ sequence:
       hours: 0
       minutes: 0
       seconds: 15
-      milliseconds: 0              
+      milliseconds: 0        
   - service: media_player.volume_set
     metadata: {}
     data:

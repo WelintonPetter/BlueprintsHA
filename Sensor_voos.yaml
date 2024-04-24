@@ -52,7 +52,7 @@ sequence:
       minutes: 0
       seconds: 15
       milliseconds: 0        
-   - service: notify.alexa_media
+  - service: notify.alexa_media
     data:
       message: >
         {% set flight_info = states['sensor.flightradar24_current_in_area'].attributes['flights'][0] %}

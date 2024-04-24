@@ -42,7 +42,7 @@ sequence:
         {% set flight_info = states['sensor.flightradar24_current_in_area'].attributes['flights'][0] %}
 
         Voo {{ flight_info['flight.flight_number'] }} da empresa {{ flight_info['airline'] }} com origem {{ flight_info['airport_origin_name'] }} foi detectado em nosso espaço aéreo
-        com destino {{ flight_info['airport_destination_city'] }}
+        com destino {{ flight_info['airport_destination_city'] }} aeroporto 
  
       data:
         type: announce
@@ -55,9 +55,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-         {% set flight_info = states['sensor.flightradar24_current_in_area'].attributes['flights'][0] %}
-
-          teste, Aeroporto {{ flight_info['airport_destination_code_iata'] }} com previsão de chegada para as {{ flight_info['flight.time_scheduled_arrival | timestamp_custom('%H:%M')'] }} 
+        teste
  
       data:
         type: announce

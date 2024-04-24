@@ -77,7 +77,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Sensor 3 - Foguete: {{ states['sensor.rocket_launch_1'].attributes['vehicle'] }}
+        teste: {{ states['sensor.flightradar24_current_in_area'].attributes['aircraft_model'] }}
       data:
         type: announce
       target: "{{ onde_anunciar }}"

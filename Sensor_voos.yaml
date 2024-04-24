@@ -51,7 +51,20 @@ sequence:
       hours: 0
       minutes: 0
       seconds: 15
-      milliseconds: 0        
+      milliseconds: 0      
+  - service: notify.alexa_media
+    data:
+      message: >
+        teste
+ 
+      data:
+        type: announce
+      target: "{{ onde_anunciar }}"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0          
   - service: media_player.volume_set
     metadata: {}
     data:

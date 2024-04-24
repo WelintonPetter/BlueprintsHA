@@ -52,6 +52,22 @@ sequence:
       minutes: 0
       seconds: 15
       milliseconds: 0        
+   - service: notify.alexa_media
+    data:
+      message: >
+        {% set flight_info = states['sensor.flightradar24_current_in_area'].attributes['flights'][0] %}
+
+        Para o aeroporto {{ flight_info['airport_destination_code_iata'] }} com previsão de chegada para as {{ flight_info['flight.time_scheduled_arrival | timestamp_custom('%H:%M')'] }}
+        
+
+      data:
+        type: announce
+      target: "{{ onde_anunciar }}"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0             
   - service: media_player.volume_set
     metadata: {}
     data:

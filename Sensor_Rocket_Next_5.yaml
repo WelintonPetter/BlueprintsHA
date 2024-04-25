@@ -53,14 +53,15 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Lançamento será no pad {{ states['sensor.rocket_launch_1'].attributes['launch_pad'] }}com sua localizado {{ states['sensor.rocket_launch_1'].attributes['launch_location'] }} com hórario previsto de Lançamento {{ states['sensor.rocket_launch_1'].attributes['launch_target'] }}
+        Lançamento será no pad {{ states['sensor.rocket_launch_1'].attributes['launch_pad'] }}, com sua localizado {{ states['sensor.rocket_launch_1'].attributes['launch_location'] }} com hórario previsto de Lançamento {{ states['sensor.rocket_launch_1'].attributes['launch_target'] }}
+
       data:
         type: announce
       target: "{{ onde_anunciar }}"
   - delay:
       hours: 0
       minutes: 0
-      seconds: 15
+      seconds: 25
       milliseconds: 0        
   - service: media_player.volume_set
     metadata: {}
@@ -69,3 +70,4 @@ sequence:
     target:
       entity_id: "{{ onde_anunciar }}"
 icon: mdi:bullhorn
+

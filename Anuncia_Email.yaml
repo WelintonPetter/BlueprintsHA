@@ -39,7 +39,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Você tem um novo e-mail com o assunto: {{ states['sensor.ultimo_titulo_email'].state }}.
+        Novo email na caixa de entrada, com o assunto: {{ states['sensor.ultimo_titulo_email'].state }}.
       data:                      
         type: announce
       target: "{{ onde_anunciar }}"

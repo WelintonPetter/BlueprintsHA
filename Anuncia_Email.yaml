@@ -1,9 +1,23 @@
 blueprint:
-  name: Anunciar via Alexa Novos Email
-  description:  Anuncia o titulo dos novos email
+  name: Anunciar via Alexa ultimo email
+  description: Anuncia pela alexa o titulo do ultimo email recebido
   domain: script
 mode: queued
 fields:
+  sensor1:
+    selector:
+      entity:
+        domain: sensor
+    name: Sensor 1
+    description: Selecione o primeiro sensor cujo estado será anunciado
+    required: true
+  sensor2:
+    selector:
+      entity:
+        domain: sensor
+    name: Sensor 2
+    description: Selecione o segundo sensor cujo estado será anunciado 
+    required: true
   onde_anunciar:
     selector:
       entity:
@@ -25,46 +39,33 @@ fields:
     name: Volume
     description: Escolha o volume do anúncio (padrão 90%)
 sequence:
-  - metadata: {}
+  - service: media_player.volume_set
+    metadata: {}
     data:
-      volume_level: '{{ volume }}'
+      volume_level: "{{ volume }}"
     target:
-      entity_id: '{{ onde_anunciar }}'
-    action: media_player.volume_set
+      entity_id: "{{ onde_anunciar }}"
   - delay:
       hours: 0
       minutes: 0
       seconds: 1
       milliseconds: 0
-  - data:
+  - service: notify.alexa_media
+    data:
       message: >
-        Você tem um novo e-mail com o assunto: {{ states['sensor.ultimo_titulo_email'].state }}.
+        Sensor 1 - Você deu o total de {{ states(sensor1) }} Passos. Seu Objetivo é 8000. Você alcançou {{ ((states(sensor1) | int / 8000) * 100) | round(2) }}% do seu objetivo.
       data:
         type: announce
-      target: '{{ onde_anunciar }}'
-    action: notify.alexa_media
+      target: "{{ onde_anunciar }}"
   - delay:
       hours: 0
       minutes: 0
       seconds: 15
-      milliseconds: 0
-  - data:
-      message: >
-        Remetente: {{ states['sensor.ultimo_titulo_email'].attributes['Remetente'] }}.
-      data:
-        type: announce
-      target: '{{ onde_anunciar }}'
-    action: notify.alexa_media
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 25
-      milliseconds: 0
-  - metadata: {}
+      milliseconds: 0        
+  - service: media_player.volume_set
+    metadata: {}
     data:
       volume_level: 0.3
     target:
-      entity_id: '{{ onde_anunciar }}'
-    action: media_player.volume_set
-icon: mdi:email
-alias: Anunciar Novo E-mail
+      entity_id: "{{ onde_anunciar }}"
+icon: mdi:bullhorn

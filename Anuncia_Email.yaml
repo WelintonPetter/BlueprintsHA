@@ -1,3 +1,7 @@
+blueprint:
+  name: Anunciar via Alexa Novos Email
+  description:  Anuncia o titulo dos novos email
+  domain: script
 mode: queued
 fields:
   onde_anunciar:

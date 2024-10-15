@@ -1,6 +1,6 @@
 blueprint:
-  name: Anunciar via Alexa com Base em Sensor
-  description: Anuncia o estado de três sensores em todas as caixas Echo selecionadas
+  name: Anunciar via Alexa o email
+  description: Anuncia via alexa titulo da ultimo email recebido
   domain: script
 mode: queued
 fields:
@@ -39,9 +39,7 @@ sequence:
   - service: notify.alexa_media
     data:
       message: >
-        Próximo Lançamento será {{ states['sensor.rocket_launch_1'].attributes['launch_date_target'] }}, da Empresa {{ states['sensor.rocket_launch_1'].attributes['provider'] }} com o foguete
-        {{ states['sensor.rocket_launch_1'].attributes['vehicle'] }} para missão {{ states['sensor.rocket_launch_1'].attributes['name'] }}.
-
+        Você tem um novo e-mail com o assunto: {{ states['sensor.ultimo_titulo_email'].state }}.
       data:                      
         type: announce
       target: "{{ onde_anunciar }}"
@@ -49,20 +47,7 @@ sequence:
       hours: 0
       minutes: 0
       seconds: 15
-      milliseconds: 0  
-  - service: notify.alexa_media
-    data:
-      message: >
-        Lançamento será no pad {{ states['sensor.rocket_launch_1'].attributes['launch_pad'] }}, com sua localizado {{ states['sensor.rocket_launch_1'].attributes['launch_location'] }} com hórario previsto de Lançamento {{ states['sensor.rocket_launch_1'].attributes['launch_target'] }}
-
-      data:
-        type: announce
-      target: "{{ onde_anunciar }}"
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 25
-      milliseconds: 0        
+      milliseconds: 0      
   - service: media_player.volume_set
     metadata: {}
     data:

@@ -1,55 +1,72 @@
 blueprint:
-  name: Anunciar Novo E-mail
-  description: Anuncia o assunto do último e-mail recebido.
-  domain: automation
-  input:
-    onde_anunciar:
-      selector:
-        entity:
-          filter:
-            - integration: alexa_media
-              domain: media_player
-          multiple: true
-      name: Onde Anunciar
-      required: true
-      default: []
-      description: Escolha as Alexas
-    volume:
-      selector:
-        number:
-          min: 0.1
-          max: 1
-          step: 0.1
-      default: 0.9
-      name: Volume
-      description: Escolha o volume do anúncio (padrão 90%)
+  name: Anunciar via Alexa com Base em Sensor
+  description: Anuncia o estado de três sensores em todas as caixas Echo selecionadas
+  domain: script
 mode: queued
+fields:
+  onde_anunciar:
+    selector:
+      entity:
+        filter:
+          - integration: alexa_media
+            domain: media_player
+        multiple: true
+    name: Onde Anunciar
+    required: true
+    default: []
+    description: Escolha as Alexas
+  volume:
+    selector:
+      number:
+        min: 0.1
+        max: 1
+        step: 0.1
+    default: 0.9
+    name: Volume
+    description: Escolha o volume do anúncio (padrão 90%)
 sequence:
   - service: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: "{{ volume }}"
     target:
-      entity_id: '{{ onde_anunciar }}'
-    data:
-      volume_level: '{{ volume }}'
-  - delay: '00:00:01'
+      entity_id: "{{ onde_anunciar }}"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
   - service: notify.alexa_media
-    target: '{{ onde_anunciar }}'
     data:
       message: >
-        Você tem um novo e-mail com o assunto: {{ states['sensor.ultimo_titulo_email'].state }}.
-      data:
+        Próximo Lançamento será {{ states['sensor.rocket_launch_1'].attributes['launch_date_target'] }}, da Empresa {{ states['sensor.rocket_launch_1'].attributes['provider'] }} com o foguete
+        {{ states['sensor.rocket_launch_1'].attributes['vehicle'] }} para missão {{ states['sensor.rocket_launch_1'].attributes['name'] }}.
+
+      data:                      
         type: announce
-  - delay: '00:00:15'
+      target: "{{ onde_anunciar }}"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0  
   - service: notify.alexa_media
-    target: '{{ onde_anunciar }}'
     data:
       message: >
-        Remetente: {{ states['sensor.ultimo_titulo_email'].attributes['Remetente'] }}.
+        Lançamento será no pad {{ states['sensor.rocket_launch_1'].attributes['launch_pad'] }}, com sua localizado {{ states['sensor.rocket_launch_1'].attributes['launch_location'] }} com hórario previsto de Lançamento {{ states['sensor.rocket_launch_1'].attributes['launch_target'] }}
+
       data:
         type: announce
-  - delay: '00:00:25'
+      target: "{{ onde_anunciar }}"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 25
+      milliseconds: 0        
   - service: media_player.volume_set
-    target:
-      entity_id: '{{ onde_anunciar }}'
+    metadata: {}
     data:
       volume_level: 0.3
-icon: mdi:email
+    target:
+      entity_id: "{{ onde_anunciar }}"
+icon: mdi:bullhorn
